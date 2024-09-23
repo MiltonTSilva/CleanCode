@@ -1,47 +1,26 @@
+using CleanCode.Interfaces;
+
 namespace CleanCode;
 public class CalculadoraDeDesconto
 {
-    public decimal CalcularDesconto(decimal precoDoProduto,
-                                    StatusDaConta statusDaConta,
-                                    int tempoDaContaEmAnos)
+    private readonly ICalculadoraDescontoStatusConta _calculadoraDescontoStatusConta;
+    private readonly ICalculadoraDescontoPorFidelidade _calculadoraDescontoPorFidelidade;
+    public CalculadoraDeDesconto(ICalculadoraDescontoStatusConta calculadoraDescontoStatusConta,
+                                 ICalculadoraDescontoPorFidelidade calculadoraDescontoPorFidelidade)
     {
-        decimal precoDepoisDoDesconto = 0;
-
-        decimal percentualDoDescontoPorFidelidade = (tempoDaContaEmAnos > Constantes.DESCONTO_MAXIMO_POR_FIDELIDADE) ?
-                                                   (decimal)Constantes.DESCONTO_MAXIMO_POR_FIDELIDADE / 100 :
-                                                   (decimal)tempoDaContaEmAnos / 100;
-
-        switch (statusDaConta)
-        {
-            case StatusDaConta.Padrao:
-                precoDepoisDoDesconto = precoDoProduto;
-                break;
-            case StatusDaConta.Especial:
-                precoDepoisDoDesconto = CalcularPrecoDepoisDoDesconto(precoDoProduto,
-                                                                  Constantes.DESCONTO_ESPECIAL,
-                                                                  percentualDoDescontoPorFidelidade);
-                break;
-            case StatusDaConta.Ouro:
-                precoDepoisDoDesconto = CalcularPrecoDepoisDoDesconto(precoDoProduto,
-                                                                  Constantes.DESCONTO_OURO,
-                                                                  percentualDoDescontoPorFidelidade);
-                break;
-            case StatusDaConta.Vip:
-                precoDepoisDoDesconto = CalcularPrecoDepoisDoDesconto(precoDoProduto,
-                                                                  Constantes.DESCONTO_VIP,
-                                                                  percentualDoDescontoPorFidelidade);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-        return precoDepoisDoDesconto;
+        this._calculadoraDescontoStatusConta = calculadoraDescontoStatusConta;
+        this._calculadoraDescontoPorFidelidade = calculadoraDescontoPorFidelidade;
     }
 
-    public decimal CalcularPrecoDepoisDoDesconto(decimal precoDoProduto,
-                                                 decimal percentualDesconto,
-                                                 decimal percentualDoDescontoPorFidelidade)
+    public decimal AplicarDesconto(decimal precoDoProduto, StatusDaConta statusDaConta, int tempoDaContaEmAnos)
     {
-        decimal precoComDesconto = precoDoProduto - (percentualDesconto * precoDoProduto);
-        return precoComDesconto - (percentualDoDescontoPorFidelidade * precoComDesconto);
+
+        var calculadoraDesconto = _calculadoraDescontoStatusConta.GetCalculoDescontoStatusConta(statusDaConta);
+
+        var precoComDescontoStatus = calculadoraDesconto.AplicarDesconto(precoDoProduto);
+
+        var precoFinal = _calculadoraDescontoPorFidelidade.CalcularDesconto(precoComDescontoStatus, tempoDaContaEmAnos);
+
+        return precoFinal;
     }
 }
