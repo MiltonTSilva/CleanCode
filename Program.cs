@@ -1,2 +1,39 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿Console.WriteLine("Calculo feito com a classe código sujo");
+
+calc1 calc = new();
+
+Console.WriteLine("Tipo 2");
+Console.WriteLine("------");
+Console.WriteLine("      ");
+Console.WriteLine(calc.calculos(1000, 2, 0));
+Console.WriteLine(calc.calculos(1000, 2, 1));
+Console.WriteLine(calc.calculos(1000, 2, 2));
+Console.WriteLine(calc.calculos(1000, 2, 3));
+Console.WriteLine(calc.calculos(1000, 2, 4));
+Console.WriteLine(calc.calculos(1000, 2, 5));
+Console.WriteLine(calc.calculos(1000, 2, 6));
+Console.WriteLine(calc.calculos(1000, 2, 7));
+Console.WriteLine("      ");
+Console.WriteLine("Tipo 3");
+Console.WriteLine("------");
+Console.WriteLine("      ");
+Console.WriteLine(calc.calculos(1000, 3, 0));
+Console.WriteLine(calc.calculos(1000, 3, 1));
+Console.WriteLine(calc.calculos(1000, 3, 2));
+Console.WriteLine(calc.calculos(1000, 3, 3));
+Console.WriteLine(calc.calculos(1000, 3, 4));
+Console.WriteLine(calc.calculos(1000, 3, 5));
+Console.WriteLine(calc.calculos(1000, 3, 6));
+Console.WriteLine(calc.calculos(1000, 3, 7));
+Console.WriteLine("      ");
+Console.WriteLine("Tipo 4");
+Console.WriteLine("------");
+Console.WriteLine("      ");
+Console.WriteLine(calc.calculos(1000, 4, 0));
+Console.WriteLine(calc.calculos(1000, 4, 1));
+Console.WriteLine(calc.calculos(1000, 4, 2));
+Console.WriteLine(calc.calculos(1000, 4, 3));
+Console.WriteLine(calc.calculos(1000, 4, 4));
+Console.WriteLine(calc.calculos(1000, 4, 5));
+Console.WriteLine(calc.calculos(1000, 4, 6));
+Console.WriteLine(calc.calculos(1000, 4, 7));
