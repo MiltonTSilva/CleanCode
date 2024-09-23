@@ -5,7 +5,7 @@ public class calc1
         decimal res = 0;
         decimal desc = (anos > 5) ? (decimal)5 / 100 : (decimal)anos / 100;
 
-        if (tip == 1) { res = val; }
+        if (tip == 1) { res = (val - (0m * val)) - desc * (val - (0m * val)); }
         else if (tip == 2)
         {
             res = (val - (0.1m * val)) - desc * (val - (0.1m * val));
